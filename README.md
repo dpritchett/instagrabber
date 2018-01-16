@@ -2,7 +2,7 @@
 
 ## What is this?
 
-This is a simple program that grabs the latest image URL from my instagram feed and serves it up to end users.
+This is a simple program that grabs a recent thumbnail from my instagram feed and serves it up to end users.
 
 ## Why?
 
