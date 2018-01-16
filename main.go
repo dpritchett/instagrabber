@@ -1,8 +1,8 @@
 package main
 
 import (
-	"./instagram"
 	"fmt"
+	"github.com/dpritchett/instagrabber/instagram"
 	"log"
 	"math/rand"
 	"net/http"
