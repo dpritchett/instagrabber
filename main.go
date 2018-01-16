@@ -14,18 +14,27 @@ func main() {
 	rand.Seed(time.Now().Unix()) // initialize global pseudo random generator
 
 	addr := ":" + os.Getenv("PORT")
-	http.HandleFunc("/", printPhotoUrl)
+	http.HandleFunc("/", renderPhoto)
+	http.HandleFunc("/raw", printRawPhotoUrl)
 
 	log.Println("Serving on port " + os.Getenv("PORT") + "...")
 	log.Fatal(http.ListenAndServe(addr, nil))
 }
 
-func printPhotoUrl(w http.ResponseWriter, r *http.Request) {
+func renderPhoto(w http.ResponseWriter, r *http.Request) {
+	photoUrl := getRandomPhoto()
+	fmt.Fprintln(w, "<html><body><img src='"+photoUrl+"'/>")
+}
+
+func printRawPhotoUrl(w http.ResponseWriter, r *http.Request) {
+	photoUrl := getRandomPhoto()
+	fmt.Fprintln(w, photoUrl)
+}
+
+func getRandomPhoto() string {
 	photos := instagram.GetPhotos()
 
 	photo := photos[rand.Intn(len(photos))]
 
-	photoUrl := photo.Thumbnails[2].Source
-
-	fmt.Fprintln(w, "<html><body><img src='"+photoUrl+"'/>")
+	return photo.Thumbnails[2].Source
 }
