@@ -28,6 +28,22 @@ type InstagramFeed struct {
 }
 
 func GetInstaPhotoUrl() string {
+	photos := GetPhotos()
+
+	thumbs := photos[0].Thumbnails
+
+	photo := thumbs[2]
+
+	log.Printf("+%v", photo)
+
+	photoUrl := photo.Source
+
+	log.Println(photoUrl)
+
+	return photoUrl
+}
+
+func GetPhotos() []InstagramNode {
 	feedUrl := "https://www.instagram.com/danieljpritchett/?__a=1"
 	resp, err := http.Get(feedUrl)
 
@@ -53,15 +69,5 @@ func GetInstaPhotoUrl() string {
 		log.Println(err)
 	}
 
-	thumbs := instaFeed.User.Media.Nodes[0].Thumbnails
-
-	photo := thumbs[2]
-
-	log.Printf("+%v", photo)
-
-	photoUrl := photo.Source
-
-	log.Println(photoUrl)
-
-	return photoUrl
+	return instaFeed.User.Media.Nodes
 }
