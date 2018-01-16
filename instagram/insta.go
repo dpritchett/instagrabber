@@ -7,8 +7,13 @@ import (
 	"net/http"
 )
 
+type Thumbnail struct {
+	Source string `json:"src"`
+}
+
 type InstagramNode struct {
-	DisplaySrc string `json:"display_src"`
+	DisplaySrc string      `json:"display_src"`
+	Thumbnails []Thumbnail `json:"thumbnail_resources"`
 }
 
 type InstagramMedia struct {
@@ -48,9 +53,15 @@ func GetInstaPhotoUrl() string {
 		log.Println(err)
 	}
 
-	photo := instaFeed.User.Media.Nodes[0]
+	thumbs := instaFeed.User.Media.Nodes[0].Thumbnails
 
-	log.Println(photo.DisplaySrc)
+	photo := thumbs[2]
 
-	return photo.DisplaySrc
+	log.Printf("+%v", photo)
+
+	photoUrl := photo.Source
+
+	log.Println(photoUrl)
+
+	return photoUrl
 }

@@ -16,5 +16,5 @@ func main() {
 
 func printPhotoUrl(w http.ResponseWriter, r *http.Request) {
 	photoUrl := instagram.GetInstaPhotoUrl()
-	fmt.Fprintln(w, "<html><body><img src='"+photoUrl+"'/> Hello World from Apex Go</body></html>")
+	fmt.Fprintln(w, "<html><body><img src='"+photoUrl+"'/>")
 }
